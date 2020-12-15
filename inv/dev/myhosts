@@ -5,6 +5,14 @@ farnsworth  ansible_host=10.10.2.6 ansible_user=farnsworth ansible_ssh_pass=alta
 
 [robot]
 bender      ansible_host=10.10.2.3 ansible_user=bender ansible_python_interpreter=/usr/bin/python3
+c3p0        ansible_host=10.10.2.7 ansible_user=c3p0  storage_type=object
+
+[robot:vars]
+gateway_ip=172.0.0.1
+storage_type=nfs
+in_production=false
+username_for_system=larry
+
 
 [deliverycrew:children]
 humanoid

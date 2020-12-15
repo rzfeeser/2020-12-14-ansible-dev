@@ -1,0 +1,23 @@
+---
+- name: Copying files from controller to hosts
+  hosts: planetexpress
+  gather_facts: yes
+  connection: ssh
+
+  tasks:
+
+    - name: Copy Fry's resume to hosts
+      copy:
+        src: ~/ans/files/fry.txt   # on the controller
+        dest: ~/fry.txt      # home directory on hosts
+
+    - name: Copy content to remote hosts
+      copy:
+              content: "This should work also"
+              dest: ~/iMadeThis.txt
+
+    - name: Copy content to the local controller
+      copy:
+              content: "{{ ansible_facts | to_nice_yaml }}"   # take facts gathered by gather_facts
+              dest: "~/ans/facts_for_{{ inventory_hostname }}_{{ ansible_facts.date_time.date }}.json"
+      delegate_to: localhost
