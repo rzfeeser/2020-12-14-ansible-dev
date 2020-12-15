@@ -1,0 +1,12 @@
+---
+- name: A simple playbook to test ansible.cfg
+  hosts: planetexpress:!farnsworth
+  gather_facts: yes  # this will be the FIRST task that runs (runs by default)
+  connection: ssh    # this is the default, but connection: is always required
+
+  tasks:
+
+  - name: create a directory
+    file:
+            path: ~/zach_made_this
+            state: directory

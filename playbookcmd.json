@@ -1,0 +1,17 @@
+[
+   {
+      "name": "A simple playbook to test ansible.cfg",
+      "hosts": "planetexpress:!farnsworth",
+      "gather_facts": "yes",
+      "connection": "ssh",
+      "tasks": [
+         {
+            "name": "create a directory",
+            "file": {
+               "path": "~/zach_made_this",
+               "state": "directory"
+            }
+         }
+      ]
+   }
+]

@@ -1,0 +1,17 @@
+---
+- name: Creating a bindmount on linux hosts
+  hosts: bender     # group name from the inventory
+  gather_facts: no  # no need to run setup (collect facts) on remote machines
+  become: yes
+
+  vars:
+          bmount: cargo
+  tasks:
+
+    - name: Bind mount a volume
+      mount:
+              path: /home/{{ inventory_hostname }}/carzo # resolves to ~/cargo (on target hosts)
+              src: /home/{{ inventory_hostname }}/  # home directory on hosts
+              opts: bind
+              fstype: none
+              state: mounted           # device will be mnted and configed in /etc/fstab
