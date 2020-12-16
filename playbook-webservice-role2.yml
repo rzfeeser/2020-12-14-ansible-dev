@@ -1,0 +1,12 @@
+- name: Using a role to deploy a webservice
+  hosts: web
+  gather_facts: no
+  become: yes
+
+  tasks:
+          - name: Run the role to build a webserver
+            import_role: 
+              name: alta3.webservice
+
+            #- name: Run the role to build a DB
+            #  import_role: oracle.db_build
