@@ -63,4 +63,18 @@
 
   - name: restart service
     shell: "/etc/init.d/apache2 restart"
+    register: results
+
+  - name: debug results
+    debug:
+            var: results.stderr.split()[0][0:-1]
+            verbosity: 1
+
+  - name: set a new fact
+    set_fact:
+            errorcode: "{{ results.stderr.split()[0][0:-1] }}"
+
+  - name: show the new variable
+    debug:
+            var: errorcode
 

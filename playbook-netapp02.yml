@@ -1,0 +1,41 @@
+---
+- name: Playbook to gather facts on NetApp StorageGrid
+  hosts: localhost
+  connection: local
+  gather_facts: no
+
+  collections:
+          - netapp.storagegrid
+
+  vars:
+          # define these for your system
+          sgurl: "https://sgadmin.example.com"
+          username: "root"
+          password: "storagegrid123"
+
+  tasks:
+          - name: Get Grid Authorization token
+            uri:
+              url: "{{ sgurl }}/api/v3/authorize"
+              method: POST
+              body: {
+                "username": "{{ username }}",
+                "password": "{{ password }}",
+                "cookie": false,
+                "csrfToken": false
+              }
+              body_format: json
+              validate_certs: false
+            register: auth
+
+          # now that we have an auth token, we can comm with the NetApp StorageGrid
+          - name: Gather StorageGRID Grid info
+            na_sg_grid_info:
+              api_url: "{{ sgurl }}"
+              auth_token: "{{ auth.json.data }}"
+              validate_certs: false
+            register: sg_grid_info
+
+          - name: Show the facts gathered from the NetApp StorageGrid
+            debug:
+                    var: sg_grid_info

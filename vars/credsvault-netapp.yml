@@ -1,0 +1,6 @@
+---
+# netapp credentials
+hostname: "na-vsim"
+username: "admin"
+password: "admins_password"
+
