@@ -1,0 +1,2 @@
+[isilon]
+;ansible_host=192.168.3.11 ansible_port=8080 ansible_user=root ansible_pass=Dees12345!
